@@ -1,85 +1,58 @@
-function ProjectCard({ project }) {
+function ProjectCard({ project, index }) {
     return (
         <article className="project-card reveal">
-            <div className="project-header">
-                <span className="project-tag">Case Study</span>
-                <h3>{project.title}</h3>
+            <div className="project-card-topline">
+                <span className="project-number">
+                    {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="project-tag">{project.category}</span>
             </div>
 
-            <div className="project-copy">
-                <div>
-                    <h4>Project Overview</h4>
-                    <p>{project.overview}</p>
-                </div>
-                <div>
-                    <h4>Technologies Used</h4>
-                    <div className="project-stack">
-                        {project.stack.map((item) => (
-                            <span key={item}>{item}</span>
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <h4>Features</h4>
-                    <ul className="project-list">
-                        {project.features.map((item) => (
-                            <li key={item}>{item}</li>
-                        ))}
-                    </ul>
-                </div>
-                <div>
-                    <h4>Challenges</h4>
-                    <p>{project.challenges}</p>
-                </div>
-                <div>
-                    <h4>Learning Outcomes</h4>
-                    <p>{project.learning}</p>
-                </div>
+            <h3>{project.title}</h3>
+            <p className="project-overview">{project.overview}</p>
+
+            <div className="project-stack" aria-label="Technologies used">
+                {project.stack.map((item) => (
+                    <span key={item}>{item}</span>
+                ))}
             </div>
 
-           <div className="project-actions">
+            <div className="project-detail">
+                <h4>What it does</h4>
+                <ul className="project-list">
+                    {project.features.map((item) => (
+                        <li key={item}>{item}</li>
+                    ))}
+                </ul>
+            </div>
 
+            <div className="project-engineering">
+                <h4>Engineering focus</h4>
+                <p>{project.engineering}</p>
+            </div>
 
-{
-project.github && (
-
-<a
-href={project.github}
-target="_blank"
-rel="noreferrer"
-className="project-button github"
->
-
-GitHub
-
-</a>
-
-)
-
-}
-
-
-
-{
-project.live && (
-
-<a
-href={project.live}
-target="_blank"
-rel="noreferrer"
-className="project-button live"
->
-
-Live Demo
-
-</a>
-
-)
-
-}
-
-
-</div>
+            <div className="project-actions">
+                {project.github && (
+                    <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-button github"
+                    >
+                        Source code <span aria-hidden="true">↗</span>
+                    </a>
+                )}
+                {project.live && (
+                    <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-button live"
+                    >
+                        Live demo <span aria-hidden="true">↗</span>
+                    </a>
+                )}
+            </div>
         </article>
     );
 }

@@ -11,10 +11,10 @@ import {
     contactLinks,
     heroRoles,
     navItems,
+    primaryEmail,
     projects,
     skillGroups,
     stats,
-    summary
 } from "./portfolioData";
 
 
@@ -280,16 +280,17 @@ function App() {
 
         event.preventDefault();
 
-        setFormState("sent");
+        const formData = new FormData(event.currentTarget);
+        const subject = formData.get("subject");
+        const body = [
+            `Name: ${formData.get("name")}`,
+            `Email: ${formData.get("email")}`,
+            "",
+            formData.get("message")
+        ].join("\n");
 
-        event.currentTarget.reset();
-
-
-        window.setTimeout(()=>{
-
-            setFormState("idle");
-
-        },2200);
+        setFormState("email-opened");
+        window.location.href = `mailto:${primaryEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     };
 
@@ -466,24 +467,21 @@ function App() {
 
 
 <p className="eyebrow">
-    Full Stack Developer Portfolio
+    Aditya Saxena · Software developer
 </p>
 
 
 
 <h1>
-    Building scalable full-stack applications with modern frontend,
-    backend, and database technologies.
+    Early-career software developer focused on reliable web applications.
 </h1>
 
 
 
 <p className="hero-text">
 
-    I design and develop modern web applications with a focus on
-    clean architecture, RESTful APIs, database design, and scalable
-    backend systems. I enjoy solving complex problems through
-    efficient algorithms and building reliable software solutions.
+    Focused on backend engineering, practical product interfaces,
+    and dependable data-driven applications.
 
 </p>
 
@@ -493,7 +491,7 @@ function App() {
 
     <span></span>
 
-    Available for Software Development Opportunities
+    Open to entry-level software developer roles
 
 </div>
 
@@ -535,7 +533,7 @@ View Projects
 
 <a
 
-href="/assets/Aditya-Saxena-Resume.pdf"
+href="/assets/Aditya-updated-resume.docx"
 
 download
 
@@ -605,7 +603,7 @@ LinkedIn
 
 
 
-<a href="mailto:adityasaxena1_cs23@gla.ac.in">
+<a href={`mailto:${primaryEmail}`}>
 
 Email
 
@@ -649,6 +647,10 @@ src="/assets/profile.png"
 
 alt="Aditya Saxena"
 
+loading="eager"
+
+fetchPriority="high"
+
  />
 
 
@@ -686,22 +688,21 @@ MongoDB
 
 
 
+<div className="portrait-caption">
+    <span>Aditya Saxena</span>
+    <span>Full-stack development · Backend systems</span>
+</div>
+
+
 <div className="hero-panel-card">
 
 
-<p className="eyebrow">
-
-Developer Profile
-
-</p>
-
-
-
-<p>
-
-{summary}
-
-</p>
+<p className="eyebrow">Currently focused on</p>
+<div className="profile-focus-list">
+    <span>Full-stack product development</span>
+    <span>Backend APIs and data systems</span>
+    <span>Java · JavaScript · React · Node.js</span>
+</div>
 
 
 </div>
@@ -730,9 +731,9 @@ id="about"
 
 eyebrow="About"
 
-title="A developer focused on building reliable and scalable software solutions."
+title="Early-career developer focused on software development."
 
-description="This portfolio showcases full-stack applications, backend systems, technical projects, and an engineering-focused approach to designing clean, maintainable software."
+description="I build practical web applications and backend systems, and I am growing my career through hands-on software development."
 
 />
 
@@ -756,10 +757,9 @@ Background
 
 <p>
 
-I specialize in full-stack development with experience
-building modern web applications using React, Node.js,
-Express.js, MongoDB, and MySQL. My focus is creating
-clean architecture, efficient APIs, and scalable solutions.
+I build full-stack applications with
+React, Node.js, Express, MongoDB, and MySQL. I care about
+clear interfaces, dependable APIs, and maintainable code.
 
 </p>
 
@@ -767,10 +767,9 @@ clean architecture, efficient APIs, and scalable solutions.
 
 <p>
 
-My technical interests include Java development,
-backend engineering, REST API design, database systems,
-and solving complex problems using Data Structures
-and Algorithms.
+My recent work includes a real-time stock portfolio tracker,
+a property listing platform, and an event-sourced task system.
+Each project has helped me explore a different part of application design.
 
 </p>
 
@@ -778,9 +777,8 @@ and Algorithms.
 
 <p>
 
-I focus on writing maintainable code, improving
-application performance, and following modern software
-engineering practices.
+I am looking for an entry-level software developer role where
+I can contribute to a team and continue growing as an engineer.
 
 </p>
 
@@ -900,9 +898,9 @@ id="projects"
 
 eyebrow="Projects"
 
-title="Engineering projects built with modern development practices."
+title="Selected work, with the engineering behind it."
 
-description="Projects demonstrating full-stack development, backend architecture, database design, API development, and real-world software implementation."
+description="Three projects exploring live market data, property listings, and event-driven backend design. Open a demo or repository to see the implementation."
 
 />
 
@@ -914,7 +912,7 @@ description="Projects demonstrating full-stack development, backend architecture
 
 
 {
-projects.map((project)=>(
+projects.map((project, index)=>(
 
 
 <ProjectCard
@@ -922,6 +920,8 @@ projects.map((project)=>(
 key={project.title}
 
 project={project}
+
+index={index}
 
 />
 
@@ -1131,7 +1131,7 @@ description="Interested in software development, technical collaboration, or inn
 
 <span></span>
 
-Available for Software Development Opportunities
+    Open to entry-level software developer roles
 
 </div>
 
@@ -1263,6 +1263,8 @@ Full Name
 
 type="text"
 
+name="name"
+
 placeholder="Your full name"
 
 required
@@ -1287,6 +1289,8 @@ Email Address
 
 type="email"
 
+name="email"
+
 placeholder="your.email@example.com"
 
 required
@@ -1310,6 +1314,8 @@ Subject
 <input
 
 type="text"
+
+name="subject"
 
 placeholder="Project collaboration, technical discussion"
 
@@ -1337,6 +1343,8 @@ Message
 
 rows="5"
 
+name="message"
+
 placeholder="Write your message, project idea, or collaboration details..."
 
 required
@@ -1357,21 +1365,19 @@ className="button button-primary"
 
 data-state={formState}
 
-disabled={formState==="sent"}
-
 >
 
 
 {
-formState==="sent"
+formState==="email-opened"
 
 ?
 
-"Message Sent"
+"Opening Email App…"
 
 :
 
-"Send Message"
+"Prepare Email"
 
 }
 
@@ -1381,10 +1387,11 @@ formState==="sent"
 
 
 
-<p className="form-note">
+<p className="form-note" aria-live="polite">
 
-This form interface is ready for integration with
-a backend service such as EmailJS, Formspree, or a custom API.
+{formState === "email-opened"
+    ? "Your email app should open with this message filled in. Review and send it there."
+    : "Prepare an email with your details. You can review it before sending."}
 
 </p>
 

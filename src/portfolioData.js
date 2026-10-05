@@ -15,14 +15,12 @@ export const heroRoles = [
     "Backend Engineer"
 ];
 
-export const summary =
-    "I am a Computer Science undergraduate with a strong foundation in Java, Python, JavaScript, Data Structures and Algorithms (DSA), Object-Oriented Programming (OOP), and Database Management Systems (DBMS). I build full-stack web applications using React, Node.js, Express.js, and MySQL/MongoDB, with a focus on RESTful API design, clean, maintainable code, and responsive, accessible interfaces. I am currently seeking internship and entry-level software developer opportunities where I can contribute to production-grade systems, collaborate using Git-based workflows, and continue growing under experienced engineers.";
+export const primaryEmail = "officaladityasaxena@gmail.com";
 
 export const stats = [
-    { value: "2027", label: "Expected graduation" },
-    { value: "72.2%", label: "Current academic score" },
-    { value: "2", label: "Full-stack projects" },
-    { value: "4", label: "Certifications" }
+    { value: "3", label: "Featured projects" },
+    { value: "4", label: "Certifications" },
+    { value: "3", label: "Programming languages" }
 ];
 
 export const skillGroups = [
@@ -59,7 +57,32 @@ export const skillGroups = [
 
 export const projects = [
   {
-    title: "WanderLust - Full Stack Property Platform",
+    title: "Stock Portfolio Tracker",
+    category: "Real-time finance platform",
+    stack: [
+        "MongoDB",
+        "Express.js",
+        "React 19",
+        "Node.js",
+        "Socket.IO",
+        "Recharts"
+    ],
+    overview:
+        "A full-stack portfolio app for following US and Indian equities with live quotes, historical charts, and clear performance tracking.",
+    features: [
+        "US and Indian market quotes with normalized ticker symbols",
+        "Live prices and historical OHLC charts",
+        "Holdings, transactions, watchlists, and price alerts",
+        "Cost basis, portfolio value, profit and loss analytics"
+    ],
+    engineering:
+        "Pooled Socket.IO subscriptions to avoid duplicate quote requests, normalized ticker formats, and added cache and fallback layers for market data outages.",
+    github: "https://github.com/Aditya2saxena/Stock-Portfolio-Tracker",
+    live: "https://stock-portfolio-tracker-bice.vercel.app/dashboard"
+  },
+  {
+    title: "StayHeaven",
+    category: "Full-stack property platform",
 
     stack: [
         "Node.js",
@@ -71,35 +94,22 @@ export const projects = [
     ],
 
     overview:
-    "A full-stack property listing platform inspired by Airbnb that allows users to create, manage, and explore property listings with a structured MVC architecture.",
+    "An Airbnb-inspired property platform for discovering stays and managing listings, built with a structured MVC backend.",
 
 
     features: [
-        "User authentication and authorization",
-        "Complete CRUD operations for listings",
-        "Review and rating management",
-        "MongoDB schema design with Mongoose",
-        "Responsive UI with reusable layouts",
-        "RESTful routing architecture"
+        "Sign-in and authorization for listing workflows",
+        "Create, update, browse, and remove property listings",
+        "Guest reviews and ratings",
+        "Responsive pages with reusable EJS layouts"
     ],
-
-
-    challenges:
-    "Designed a maintainable backend structure, managed database relationships, implemented validation, and created a scalable application workflow.",
-
-
-    learning:
-    "Improved understanding of backend development, MVC architecture, middleware handling, database modeling, and full-stack application design.",
-
-
-    repositoryLabel:
-    "View GitHub Repository",
-
-    liveLabel:
-    "Live Demo"
+    engineering:
+        "Organized routes, middleware, and data models around an MVC structure, with validation and linked listing and review data.",
+    github: "https://github.com/Aditya2saxena/StayHeaven"
 },
     {
         title: "Event-Sourced Task Management System",
+        category: "Backend architecture",
         stack: ["Node.js", "Express.js", "MongoDB", "Event Sourcing"],
         overview:
             "An event-driven task management system built on the event sourcing pattern to handle task lifecycle operations while preserving complete event history and reconstructable application state.",
@@ -108,12 +118,10 @@ export const projects = [
             "Replay-based state reconstruction from the event store",
             "Snapshotting support to improve recovery time and scalability"
         ],
-        challenges:
-            "Designing a system that maintains data consistency while handling event history, replay logic, and fault recovery efficiently.",
-        learning:
-            "Improved my understanding of event sourcing, audit traceability, recovery strategies, and alternative backend architecture patterns beyond standard CRUD.",
-        repositoryLabel: "Add GitHub Repo",
-        liveLabel: "Architecture Showcase"
+        engineering:
+            "Kept task changes in an immutable event log and used replay and snapshots to rebuild state and support recovery.",
+        github: "https://github.com/Aditya2saxena/Event-Sourced-Task-Management_System",
+        live: "https://event-sourced-task-management-system.onrender.com"
     }
 ];
 
@@ -186,8 +194,8 @@ export const contactLinks = [
 
     {
         label:"Email",
-        value:"officaladityasaxena@gmail.com",
-        href:"mailto:adityasaxena1_cs23@gla.ac.in"
+        value:primaryEmail,
+        href:`mailto:${primaryEmail}`
     },
 
 
